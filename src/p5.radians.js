@@ -1,3 +1,7 @@
+// author  : Arthur Correnson
+// mail    : jdrprod@gmail.com
+// version : 0.0.0
+
 (function(){
     //private method
     var Utils = {

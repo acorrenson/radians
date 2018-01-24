@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Test</title>
-    </head>
-    <body>
-        <script src="../dep/p5.min.js" charset="utf-8"></script>
-        <script src="../src/p5.radians.js" charset="utf-8"></script>
-        <script type="text/javascript">
-            var foo;
-            function setup() {
-                createCanvas(400, 400);
-                foo = new Point(0, Math.PI/3, 40);
-                foo.setCart();
-            }
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+</head>
+<body>
+  <script src="../dep/p5.min.js" charset="utf-8"></script>
+  <script src="../src/p5.radians.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    var foo;
+    var p = [];
 
-            function draw() {
-                background(55);
-                translate(200, 200);
-                fill(0, 255, 0);
-                ellipse(0, 0, 10, 10);
-                foo.draw();
-            }
-        </script>
-    </body>
+    function setup() {
+      createCanvas(400, 400);
+      // foo = new Point(0, -Math.PI/3, 100);
+      for (var i = 0; i < 600; i++) {
+        var a = random(0, Math.PI*2);
+        var b = random(0, Math.PI*2);
+        p.push(new Point(a, b, 100));
+      }
+    }
+
+  function draw() {
+    background(55);
+    if(isKeyPressed) {
+      switch(keyCode) {
+        case RIGHT_ARROW:
+          for(n of p) n.rotate(-Math.PI/80);
+            break;
+        case LEFT_ARROW:
+          for(n of p) n.rotate(Math.PI/80);
+            break;
+      }
+    }
+    translate(200, 200);
+    fill(0, 0, 0);
+    ellipse(0, 0, 10);
+    for (var n of p) {
+      if(n.y>0) n.draw();
+    }
+  }
+
+</script>
+</body>
 </html>

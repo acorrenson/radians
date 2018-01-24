@@ -9,17 +9,6 @@
   // <-- PRIVATE --> //
   var version = "0.0.0";
   //private method
-  function cos (rad) {
-    return Math.cos(rad);
-  }
-
-  function sin (rad) {
-    return Math.sin(rad);
-  }
-
-  function tan (rad) {
-    return Math.tan(rad);
-  }
 
   // <-- PUBLIC --> //
 
@@ -28,24 +17,26 @@
     this.a = a;
     this.b = b;
     this.radius = radius;
+    this.setCart();
   }
 
   // convert actuals spherical coordinates in cartesian coordinates
   p5.prototype.Point.prototype.setCart = function() {
-    this.x = this.radius * cos(this.a)/cos(this.b);
-    this.y = this.radius * sin(this.a)/cos(this.b);
-    this.z = this.radius * tan(this.b);
+    this.x = this.radius * sin(this.b)*cos(this.a);
+    this.y = this.radius * sin(this.b)*sin(this.a);
+    this.z = this.radius * cos(this.b);
   }
 
-  p5.prototype.Point.prototype.rotate = function() {
-    console.log("e")
+  // rotate on a
+  p5.prototype.Point.prototype.rotate = function(a) {
+    this.a += a;
+    this.setCart();
   }
 
   p5.prototype.Point.prototype.draw = function() {
-    this.setCart();
     fill(255, 0, 0);
-    ellipse(this.x, this.y, 10, 10);
+    noStroke();
+    ellipse(this.x, this.z, 10, 10);
   }
-
 
 })();

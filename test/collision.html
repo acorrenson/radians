@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Collision test</title>
-    </head>
-    <body>
-        <script src="../p5.min.js" charset="utf-8"></script>
-        <script type="text/javascript">
-            console.log(p5.prototype.hasOwnProperty('rect'));
-        </script>
-    </body>
+<head>
+  <meta charset="utf-8">
+  <title>Collision test</title>
+</head>
+<body>
+  <script src="../dep/p5.min.js" charset="utf-8"></script>
+  <script src="../src/p5.radians.js"></script>
+  <script src="../utils/checkCollide.js"></script>
+  <script type="text/javascript">
+    checkCollide("Point");
+    checkCollide("rotate");
+  </script>
+</body>
 </html>

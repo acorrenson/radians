@@ -1,7 +1,9 @@
 // author  : Arthur Correnson
 // mail    : jdrprod@gmail.com
 // version : 0.0.0
-
+/*
+    This plugin is in development, do not use ^^ !
+*/
 (function(){
     //private method
     var Utils = {
@@ -9,7 +11,8 @@
             console.log("Hello");
         }
     }
-    // -- PUBLIC -- //
+
+    // <-- PUBLIC --> //
 
     //return hello to the console
     p5.prototype.sayHello = function() {

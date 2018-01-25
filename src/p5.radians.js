@@ -27,7 +27,7 @@
     this.z = this.radius * cos(this.b);
   }
 
-  // rotate on a
+  // rotate arround Z axis
   p5.prototype.Point.prototype.rotate = function(a) {
     this.a += a;
     this.setCart();

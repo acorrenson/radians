@@ -2,6 +2,9 @@
 
 *!!! BE CAREFUL, THIS PROJECT IS IN DEVELOPMENT !!!*
 
-Plugin for p5.js.
+This plugin allows you to generate some beautiful planets, stars and galaxies.
 
-Angle based 3D engine.
+Features:
+
++ 3D visualisation
++ *more soon*

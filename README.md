@@ -18,24 +18,22 @@ It uses p5 2D renderer + a custom *3D engine* (it's not a true 3D engine but jus
 All the system is built arround the `Point` object.
 
 ```javascript
-  Point(angle1, angle2, radius);
+  Point(radius, angle1, angle2);
 ```
 
-+ `angle1` => elevation (latitude) in Radians
-+ `angle2` => inclination (longitude) in Radians
-+ `radius` => distance between the point and the origin (0, 0) in px
++ `radius` => radial distance in px
++ `angle1` => azimuthal angle(latitude) in Radians
++ `angle2` => polar angle (longitude) in Radians
 
 Let's see an exemple :
 
 ```javascript
-  var p = new Point(0, PI, 100);
+  var p = new Point(100, 0, PI);
 ```
 
 `p` is a point with spherical coordinates (100, 0, PI)
 
-* *be careful, spherical coordinates are  usually written like `radius, angle1, angle2` but the constructor needs `angle1, angle2, radius`*
-
-
+* *be careful, spherical coordinates in p5.radians.js are written according mathematics convention*
 # How to use it ?
 
 This plugin is realy easy to use

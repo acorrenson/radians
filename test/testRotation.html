@@ -16,31 +16,30 @@
       for (var i = 0; i < 600; i++) {
         var a = random(0, Math.PI*2);
         var b = random(0, Math.PI*2);
-        p.push(new Point(a, b, 100));
+        p.push(new Point(100, a, b));
       }
     }
 
-  function draw() {
-    background(55);
-    if(isKeyPressed) {
-      switch(keyCode) {
-        case RIGHT_ARROW:
+    function draw() {
+      background(55);
+      if(isKeyPressed) {
+        switch(keyCode) {
+          case RIGHT_ARROW:
           for(n of p) n.rotate(-Math.PI/80);
             break;
-        case LEFT_ARROW:
+          case LEFT_ARROW:
           for(n of p) n.rotate(Math.PI/80);
             break;
+        }
+      }
+      translate(200, 200);
+      fill(0, 0, 0);
+      ellipse(0, 0, 10);
+      for (var n of p) {
+        n.draw("z");
       }
     }
-    
-    translate(200, 200);
-    fill(0, 0, 0);
-    ellipse(0, 0, 10);
-    for (var n of p) {
-      n.draw("z");
-    }
-  }
 
-</script>
+  </script>
 </body>
 </html>

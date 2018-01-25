@@ -13,9 +13,9 @@
   // <-- PUBLIC --> //
 
   //class Point
-  p5.prototype.Point = function(a, b, radius) {
-    this.a = a;
-    this.b = b;
+  p5.prototype.Point = function(radius, inclination, elevation) {
+    this.a = elevation;
+    this.b = inclination;
     this.radius = radius;
     this.setCart();
   }
@@ -27,7 +27,7 @@
     this.z = this.radius * cos(this.b);
   }
 
-  // rotate on a
+  // rotate arround Z axis
   p5.prototype.Point.prototype.rotate = function(a) {
     this.a += a;
     this.setCart();

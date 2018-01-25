@@ -13,9 +13,9 @@
   // <-- PUBLIC --> //
 
   //class Point
-  p5.prototype.Point = function(a, b, radius) {
-    this.a = a;
-    this.b = b;
+  p5.prototype.Point = function(radius, inclination, elevation) {
+    this.a = elevation;
+    this.b = inclination;
     this.radius = radius;
     this.setCart();
   }

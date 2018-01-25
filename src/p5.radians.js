@@ -33,10 +33,12 @@
     this.setCart();
   }
 
-  p5.prototype.Point.prototype.draw = function() {
+  p5.prototype.Point.prototype.draw = function(upAxes = "z") {
     fill(255, 0, 0);
     noStroke();
-    ellipse(this.x, this.z, 10, 10);
+    var r = upAxes === "z" ? "y" : "z"
+    if(this[r] > 0)
+      ellipse(this.x, this[upAxes], 10, 10);
   }
 
 })();

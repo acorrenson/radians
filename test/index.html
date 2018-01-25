@@ -32,11 +32,12 @@
             break;
       }
     }
+    
     translate(200, 200);
     fill(0, 0, 0);
     ellipse(0, 0, 10);
     for (var n of p) {
-      if(n.y>0) n.draw();
+      n.draw("z");
     }
   }
 

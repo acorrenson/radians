@@ -12,6 +12,17 @@
 
   // <-- PUBLIC --> //
 
+  // scale
+  p5.prototype.scale = function(point, modeName = "linear", intensity = -0.5) { 
+    var mode = {
+      linear: function() {
+        return intensity/point.radius * abs(point.x) + 1;
+      }
+    }
+    if(intensity < -1 || intensity > 1) intensity = -0.5;
+    return mode[modeName]();
+  }
+
   //class Point
   p5.prototype.Point = function(radius, azim, pola) {
     this.a = azim;
@@ -22,9 +33,6 @@
 
   // convert actuals spherical coordinates in cartesian coordinates
   p5.prototype.Point.prototype.setCart = function() {
-    // this.x = this.radius * sin(this.b)*cos(this.a);
-    // this.y = this.radius * sin(this.b)*sin(this.a);
-    // this.z = this.radius * cos(this.b);
     this.x = this.radius * sin(this.b)*cos(this.a);
     this.y = this.radius * sin(this.b)*sin(this.a);
     this.z = this.radius * cos(this.b);
@@ -36,13 +44,15 @@
     this.setCart();
   }
 
-  p5.prototype.Point.prototype.draw = function(upAxes = "z") {
+  p5.prototype.Point.prototype.draw = function(upAxes = "z", scaleEnabled = true, scaleMode = "linear") {
     fill(255, 0, 0);
     noStroke();
     var r = upAxes === "z" ? "y" : "z";
-    this.scale = -0.5/this.radius * abs(this.x) + 1;
+    
+    var h = scaleEnabled ? 8*scale(this, scaleMode) : 8;
+
     if(this[r] > 0)
-      ellipse(this.x, this[upAxes], 8*this.scale, 8*this.scale);
+      ellipse(this.x, this[upAxes], h, h);
   }
 
 })();

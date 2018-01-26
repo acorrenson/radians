@@ -36,8 +36,9 @@
   p5.prototype.Point.prototype.draw = function(upAxes = "z") {
     fill(255, 0, 0);
     noStroke();
-    var r = upAxes === "z" ? "y" : "z"
-    if(this[r] > 0)
+    var r = upAxes === "z" ? "y" : "z";
+ 
+    if(this[r] >= 0)
       ellipse(this.x, this[upAxes], 10, 10);
   }
 

@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript" src="../dep/p5.min.js"></script>
+  <script type="text/javascript" src="../src/p5.radians.js"></script>
+  <script>
+
+    var p;
+
+    function setup() {
+      createCanvas(800, 800);
+      p = new Planet(200, 800);
+      p.startRotation(PI/180, 1000/60);
+    }
+
+    function draw() {
+      background(55);
+      translate(400, 400);
+      p.draw();
+    }
+  </script>
+</body>
+</html>

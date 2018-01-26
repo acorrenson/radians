@@ -15,13 +15,16 @@
   //class Point
   p5.prototype.Point = function(radius, azim, pola) {
     this.a = azim;
-    this.b = pola;
+    this.b = pola + HALF_PI;
     this.radius = radius;
     this.setCart();
   }
 
   // convert actuals spherical coordinates in cartesian coordinates
   p5.prototype.Point.prototype.setCart = function() {
+    // this.x = this.radius * sin(this.b)*cos(this.a);
+    // this.y = this.radius * sin(this.b)*sin(this.a);
+    // this.z = this.radius * cos(this.b);
     this.x = this.radius * sin(this.b)*cos(this.a);
     this.y = this.radius * sin(this.b)*sin(this.a);
     this.z = this.radius * cos(this.b);
@@ -37,9 +40,9 @@
     fill(255, 0, 0);
     noStroke();
     var r = upAxes === "z" ? "y" : "z";
- 
-    if(this[r] >= 0)
-      ellipse(this.x, this[upAxes], 10, 10);
+    this.scale = -0.5/this.radius * abs(this.x) + 1;
+    if(this[r] > 0)
+      ellipse(this.x, this[upAxes], 8*this.scale, 8*this.scale);
   }
 
 })();

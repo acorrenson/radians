@@ -11,13 +11,25 @@
     var p;
     function setup() {
       createCanvas(400, 400);
-      p = new Point(100, 0, 0);
+      p = new Point(50, -HALF_PI, 0);
 
     }
 
     function draw() {
       background(55);
+      if(isKeyPressed) {
+        switch(keyCode) {
+          case RIGHT_ARROW:
+          p.rotate(-Math.PI/80);
+          break;
+          case LEFT_ARROW:
+          p.rotate(Math.PI/80);
+            break;
+        }
+      }
       translate(200, 200);
+      fill(0)
+      ellipse(0, 0, 10, 10);
       p.draw();
     }
   </script>

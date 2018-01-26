@@ -19,7 +19,6 @@
         return intensity/point.radius * abs(point.x) + 1;
       }
     }
-    if(intensity < -1 || intensity > 1) intensity = -0.5;
     return mode[modeName]();
   }
 
@@ -44,12 +43,12 @@
     this.setCart();
   }
 
-  p5.prototype.Point.prototype.draw = function(upAxes = "z", scaleEnabled = true, scaleMode = "linear") {
+  p5.prototype.Point.prototype.draw = function(upAxes = "z", scaleEnabled = true) {
     fill(255, 0, 0);
     noStroke();
     var r = upAxes === "z" ? "y" : "z";
     
-    var h = scaleEnabled ? 8*scale(this, scaleMode) : 8;
+    var h = scaleEnabled ? 8*scale(this) : 8;
 
     if(this[r] > 0)
       ellipse(this.x, this[upAxes], h, h);

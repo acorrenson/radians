@@ -21,6 +21,7 @@
       createCanvas(windowWidth, windowHeight);
       p = new Planet(150, 800);
       p.startRotation(PI/180, 1000/60);
+      p.generate();
       p2 = new Planet(50, 200, color(0, 255, 0));
       p2.startRotation(PI/90, 1000/60);
       // a = new Anchor(p, p2);

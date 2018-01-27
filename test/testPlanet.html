@@ -21,7 +21,8 @@
       p.generate();
       p.startRotation(PI/180, 1000/60);
       p.newSatellite(150, 0, PI/8, 30, 300, color(0, 0, 255));
-      p.satellite.newSatellite(60, 0, -PI/8, 10, 150, color(0, 255, 0));
+      p.satellite.newSatellite(100, 0, -PI/8, 10, 150, color(0, 255, 0));
+      p.satellite.satellite.newSatellite(50, 0, 0, 5, 10, color(255, 255, 0));
     }
 
     function draw() {

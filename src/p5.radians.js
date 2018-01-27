@@ -65,7 +65,7 @@
   // class Planet
   p5.prototype.Planet = function(radius, density, origin = originUniverse, c) {
     this.points = [];
-    this.satellites = [];
+    this.satellites = null;
     this.density = density;
     this.radius = radius;
     this.c =  c;
@@ -112,15 +112,16 @@
   // add a new satellite
   p5.prototype.Planet.prototype.newSatellite = function(satellite) {
     var s = new Anchor(this, satellite);
-    this.satellites.push(s);
+    this.satellite = s;
   }
 
   p5.prototype.Planet.prototype.drawSatellites = function() {
-    for(var i = 0; i < this.satellites.length; i++) {
+    // for(var i = 0; i < this.satellites.length; i++) {
+    if (this.satellite) {
       push();
-      this.satellites[i].rotate(PI/180);
-      translate(this.satellites[i].x, this.satellites[i].z);
-      this.satellites[i].child.draw();
+      this.satellite.rotate(PI/180);
+      translate(this.satellite.x, this.satellite.z);
+      this.satellite.child.draw();
       pop();
     }
   }

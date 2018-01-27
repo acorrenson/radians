@@ -87,6 +87,7 @@
     for(var i = 0; i < this.points.length; i++) {
       this.points[i].draw();
     }
+    this.drawSatellites();
   }
 
   // planet.rotate()
@@ -99,10 +100,13 @@
   // planet.setRotation()
   // start auto rotation
   p5.prototype.Planet.prototype.startRotation = function(angle, delta) {
-    this.rotation = setInterval(() => {this.rotate(angle)}, delta);
+    this.rotation = setInterval(() => {
+      this.rotate(angle);
+      if (this.satellite) this.satellite.rotate(angle);
+    }, delta);
   }
 
-  // planet.stopRotation()
+  // planet.stopRotation()  
   // cancel auto rotation
   p5.prototype.Planet.prototype.stopRotation = function() {
     if (this.rotation)
@@ -119,7 +123,7 @@
     // for(var i = 0; i < this.satellites.length; i++) {
     if (this.satellite) {
       push();
-      this.satellite.rotate(PI/180);
+      // this.satellite.rotate(PI/180);
       translate(this.satellite.x, this.satellite.z);
       this.satellite.child.draw();
       pop();

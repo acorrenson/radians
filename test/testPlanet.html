@@ -17,11 +17,11 @@
 
     function setup() {
       createCanvas(windowWidth, windowHeight);
-      p = new Planet(100, 600);
+      p = new Planet(100, 900);
       p.generate();
       p.startRotation(PI/180, 1000/60);
-      p.newSatellite(150, 0, 0, 30, 100);
-      p.satellite.newSatellite(60, 0, 0, 20, 10);
+      p.newSatellite(150, 0, PI/8, 30, 300, color(0, 0, 255));
+      p.satellite.newSatellite(60, 0, -PI/8, 10, 150, color(0, 255, 0));
     }
 
     function draw() {

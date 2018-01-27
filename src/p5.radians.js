@@ -165,7 +165,15 @@
   p5.prototype.Satellite.prototype.draw = function() {
     push();
     translate(this.anchor.x, this.anchor.z);
-    this.drawSelf();
+    if(this.satellite && this.satellite.anchor.y > 0) {
+      this.drawSelf();
+      this.satellite.draw();
+    } else if(this.satellite) {
+      this.satellite.draw();
+      this.drawSelf();
+    } else {
+      this.drawSelf();
+    }
     pop();
   }
 

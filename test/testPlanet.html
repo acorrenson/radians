@@ -14,29 +14,20 @@
   <script>
 
     var p;
-    var p2;
-    var a;
 
     function setup() {
       createCanvas(windowWidth, windowHeight);
-      p = new Planet(150, 800);
-      p.startRotation(PI/180, 1000/60);
+      p = new Planet(100, 600);
       p.generate();
-      p2 = new Planet(50, 200, color(0, 255, 0));
-      p2.startRotation(PI/90, 1000/60);
-      // a = new Anchor(p, p2);
-      p.newSatellite(p2);
-
+      p.startRotation(PI/180, 1000/60);
+      p.newSatellite(150, 0, 0, 30, 100);
+      p.satellite.newSatellite(60, 0, 0, 20, 10);
     }
 
     function draw() {
       background(0);
       translate(width/2, height/2);
-      // a.rotate(PI/280);
-      // a.draw();
       p.draw();
-      // translate(a.x, 0);
-      // p2.draw();
     }
 
     function windowResized() {

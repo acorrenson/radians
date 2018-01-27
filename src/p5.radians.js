@@ -69,7 +69,6 @@
     this.density = density;
     this.radius = radius;
     this.c = c;
-    // this.generate();
   }
 
   // planet.generate()
@@ -81,21 +80,23 @@
 
   // planet.draw()
   p5.prototype.Planet.prototype.draw = function() {
-    if(this.satellite && this.satellite.y > 0) {
-      fill(0);
-      ellipse(0, 0, this.radius*2, this.radius*2);
-      for(var i = 0; i < this.points.length; i++) {
-        this.points[i].draw();
-      }
-      this.drawSatellite();
+
+    if(this.satellite && this.satellite.anchor.y > 0) {
+      this.drawSelf();
+      this.satellite.draw();
+    } else if(this.satellite) {
+      this.satellite.draw();
+      this.drawSelf();
     } else {
-      this.drawSatellite();
-      fill(0);
-      ellipse(0, 0, this.radius*2, this.radius*2);
-      for(var i = 0; i < this.points.length; i++) {
-        this.points[i].draw();
-      }
+      this.drawSelf();
     }
+
+  }
+
+  p5.prototype.Planet.prototype.drawSelf = function() {
+    fill(0);
+    ellipse(0, 0, this.radius*2, this.radius*2);
+    this.drawPoints();
   }
 
   // planet.rotate()
@@ -110,7 +111,7 @@
   p5.prototype.Planet.prototype.startRotation = function(angle, delta) {
     this.rotation = setInterval(() => {
       this.rotate(angle);
-      if (this.satellite) this.satellite.rotate(-angle);
+      // if (this.satellite) this.satellite.rotate(-angle);
     }, delta);
   }
 
@@ -122,27 +123,50 @@
   }
 
   // add a new satellite
-  p5.prototype.Planet.prototype.newSatellite = function(satellite) {
-    satellite.generate();
-    var s = new Anchor(this, satellite);
+  p5.prototype.Planet.prototype.newSatellite = function(distance, anchorAzim, anchorPola, radius, density, color) {
+    var s = new Satellite(distance, anchorAzim, anchorPola, radius, density, color);
+    s.generate();
+    s.startRotation(-PI/180, 1000/60);
+    console.log(s);
     this.satellite = s;
   }
 
-  p5.prototype.Planet.prototype.drawSatellite = function() {
-    if (this.satellite) {
-      push();
-      translate(this.satellite.x, this.satellite.z);
-      this.satellite.child.draw();
-      pop();
+  p5.prototype.Planet.prototype.drawPoints = function() {
+    for(var i = 0; i < this.points.length; i++) {
+      this.points[i].draw();
     }
-  }
+  } 
 
-  p5.prototype.Anchor = function(parent, child) {
-    this.parent = parent;
-    this.child = child;
-    p5.prototype.Point.call(this, this.parent.radius + this.child.radius + 50, 0, PI/8);
+  p5.prototype.Anchor = function(radius, azim, pola) {
+    p5.prototype.Point.call(this, radius, azim, pola);
   }
 
   p5.prototype.Anchor.prototype = Object.assign({}, p5.prototype.Point.prototype);
+
+  p5.prototype.Anchor.prototype.startRotation = function(angle, delta) {
+    this.rotation = setInterval(() => {
+      this.rotate(angle);
+    }, delta);
+  }
+
+  p5.prototype.Anchor.prototype.stopRotation = function() {
+    if(this.rotation)
+      clearInterval(this.rotation);
+  }
+
+  p5.prototype.Satellite = function(distance, anchorAzim, anchorPola, radius, density, color) {
+    p5.prototype.Planet.call(this, radius, density, color);
+    this.anchor = new Anchor(distance, anchorAzim, anchorPola);
+    this.anchor.startRotation(PI/180, 1000/60);
+  }
+
+  p5.prototype.Satellite.prototype = Object.assign({}, p5.prototype.Planet.prototype);
+
+  p5.prototype.Satellite.prototype.draw = function() {
+    push();
+    translate(this.anchor.x, this.anchor.z);
+    this.drawSelf();
+    pop();
+  }
 
 })();

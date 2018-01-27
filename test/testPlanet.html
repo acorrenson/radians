@@ -20,9 +20,9 @@
       p = new Planet(100, 900);
       p.generate();
       p.startRotation(PI/180, 1000/60);
-      p.newSatellite(150, 0, PI/8, 30, 300, color(0, 0, 255));
-      p.satellite.newSatellite(100, 0, -PI/8, 10, 150, color(0, 255, 0));
-      p.satellite.satellite.newSatellite(50, 0, 0, 5, 10, color(255, 255, 0));
+      p.newSatellite(300, 0, PI/8, 30, 300, color(0, 0, 255), PI/120);
+      p.satellite.newSatellite(100, 0, -PI/8, 10, 150, color(0, 255, 0), PI/200);
+      p.satellite.satellite.newSatellite(30, 0, 0, 5, 10, color(255, 255, 0), PI/100);
     }
 
     function draw() {

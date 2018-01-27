@@ -2,6 +2,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style type="text/css">
+    html{
+      background-color: black;
+    }
+  </style>
 </head>
 <body>
   <script src="../dep/p5.min.js"></script>
@@ -11,26 +16,22 @@
     var p;
     
     function setup() {
-      createCanvas(400, 400);
-      p = new Point(50, -HALF_PI, 0);
+      createCanvas(windowWidth, windowHeight);
+      p = new Planet(100, 400);
+      p.startRotation(PI/180, 1000/60);
+      p2 = new Planet(30, 100);
+      p.newSatellite(p2);
+    }
+
+    function onResized() {
+      resizeCanvas(windowWidth, windowHeight);
     }
 
     function draw() {
-      background(55);
-      if(isKeyPressed) {
-        switch(keyCode) {
-          case RIGHT_ARROW:
-          p.rotate(-Math.PI/80);
-          break;
-          case LEFT_ARROW:
-          p.rotate(Math.PI/80);
-            break;
-        }
-      }
-      translate(200, 200);
-      fill(0)
-      ellipse(0, 0, 10, 10);
+      background(0);
+      translate(width/2, height/2);
       p.draw();
+      p.drawSatellites();
     }
   </script>
 </body>

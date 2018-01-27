@@ -63,12 +63,13 @@
   }
 
   // class Planet
-  p5.prototype.Planet = function(radius, density, c) {
+  p5.prototype.Planet = function(radius, density, origin = originUniverse, c) {
     this.points = [];
-    this.satelites = [];
+    this.satellites = [];
     this.density = density;
     this.radius = radius;
     this.c =  c;
+    this.origin = origin;
     this.generate();
   }
 
@@ -109,8 +110,19 @@
   }
 
   // add a new satellite
-  p5.prototype.Planet.prototype.newSatelite = function() {
-    // this.satellite.push(new )
+  p5.prototype.Planet.prototype.newSatellite = function(satellite) {
+    var s = new Anchor(this, satellite);
+    this.satellites.push(s);
+  }
+
+  p5.prototype.Planet.prototype.drawSatellites = function() {
+    for(var i = 0; i < this.satellites.length; i++) {
+      push();
+      this.satellites[i].rotate(PI/180);
+      translate(this.satellites[i].x, this.satellites[i].z);
+      this.satellites[i].child.draw();
+      pop();
+    }
   }
 
   p5.prototype.Anchor = function(parent, child) {

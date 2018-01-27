@@ -63,14 +63,13 @@
   }
 
   // class Planet
-  p5.prototype.Planet = function(radius, density, origin = originUniverse, c) {
+  p5.prototype.Planet = function(radius, density, c) {
     this.points = [];
-    this.satellites = null;
+    this.satellite = null;
     this.density = density;
     this.radius = radius;
-    this.c =  c;
-    this.origin = origin;
-    this.generate();
+    this.c = c;
+    // this.generate();
   }
 
   // planet.generate()
@@ -82,16 +81,15 @@
 
   // planet.draw()
   p5.prototype.Planet.prototype.draw = function() {
-
     if(this.satellite && this.satellite.y > 0) {
       fill(0);
       ellipse(0, 0, this.radius*2, this.radius*2);
       for(var i = 0; i < this.points.length; i++) {
         this.points[i].draw();
       }
-      this.drawSatellites();
+      this.drawSatellite();
     } else {
-      this.drawSatellites();
+      this.drawSatellite();
       fill(0);
       ellipse(0, 0, this.radius*2, this.radius*2);
       for(var i = 0; i < this.points.length; i++) {
@@ -112,7 +110,7 @@
   p5.prototype.Planet.prototype.startRotation = function(angle, delta) {
     this.rotation = setInterval(() => {
       this.rotate(angle);
-      if (this.satellite) this.satellite.rotate(angle);
+      if (this.satellite) this.satellite.rotate(-angle);
     }, delta);
   }
 
@@ -125,15 +123,14 @@
 
   // add a new satellite
   p5.prototype.Planet.prototype.newSatellite = function(satellite) {
+    satellite.generate();
     var s = new Anchor(this, satellite);
     this.satellite = s;
   }
 
-  p5.prototype.Planet.prototype.drawSatellites = function() {
-    // for(var i = 0; i < this.satellites.length; i++) {
-      if (this.satellite) {
-        push();
-      // this.satellite.rotate(PI/180);
+  p5.prototype.Planet.prototype.drawSatellite = function() {
+    if (this.satellite) {
+      push();
       translate(this.satellite.x, this.satellite.z);
       this.satellite.child.draw();
       pop();
@@ -143,7 +140,7 @@
   p5.prototype.Anchor = function(parent, child) {
     this.parent = parent;
     this.child = child;
-    p5.prototype.Point.call(this, this.parent.radius + this.child.radius + 50, 0, 0);
+    p5.prototype.Point.call(this, this.parent.radius + this.child.radius + 50, 0, PI/8);
   }
 
   p5.prototype.Anchor.prototype = Object.assign({}, p5.prototype.Point.prototype);

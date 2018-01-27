@@ -17,7 +17,7 @@
   //   b: 0
   // }
 
-  p5.prototype.projectionMode = "z";
+  p5.prototype.projectionMode = "y";
 
   // scale
   p5.prototype.scale = function(point, modeName = "linear", intensity = -0.5) {
@@ -53,15 +53,15 @@
   }
 
   // draw a point
-  p5.prototype.Point.prototype.draw = function(upAxes = "z", scaleEnabled = true) {
+  p5.prototype.Point.prototype.draw = function(scaleEnabled = true) {
     // get cartesian coordinates
     if(!this.x) this.setCart();
     fill(this.c);
     noStroke();
-    var r = upAxes === "z" ? "y" : "z";
+    var r = projectionMode === "z" ? "y" : "z";
     var h = scaleEnabled ? 8*scale(this) : 8;
     if(this[r] > 0)
-      ellipse(this.x, this[upAxes], h, h);
+      ellipse(this.x, this[projectionMode], h, h);
   }
 
   // class Planet
@@ -122,8 +122,8 @@
   }
 
   // add a new satellite
-  p5.prototype.Planet.prototype.newSatellite = function(distance, anchorAzim, anchorPola, radius, density, color) {
-    var s = new Satellite(distance, anchorAzim, anchorPola, radius, density, color);
+  p5.prototype.Planet.prototype.newSatellite = function(distance, anchorAzim, anchorPola, radius, density, color, speed) {
+    var s = new Satellite(distance, anchorAzim, anchorPola, radius, density, color, speed);
     s.generate();
     s.startRotation(-PI/180, 1000/60);
     this.satellite = s;
@@ -155,17 +155,17 @@
   }
 
   // class satellite
-  p5.prototype.Satellite = function(distance, anchorAzim, anchorPola, radius, density, color) {
+  p5.prototype.Satellite = function(distance, anchorAzim, anchorPola, radius, density, color, speed = PI/180) {
     p5.prototype.Planet.call(this, radius, density, color);
     this.anchor = new Anchor(distance, anchorAzim, anchorPola);
-    this.anchor.startRotation(PI/180, 1000/60);
+    this.anchor.startRotation(speed, 1000/60);
   }
 
   p5.prototype.Satellite.prototype = Object.assign({}, p5.prototype.Planet.prototype);
 
   p5.prototype.Satellite.prototype.draw = function() {
     push();
-    translate(this.anchor.x, this.anchor.z);
+    translate(this.anchor.x, this.anchor[projectionMode]);
     if(this.satellite && this.satellite.anchor.y > 0) {
       this.drawSelf();
       this.satellite.draw();

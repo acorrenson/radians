@@ -12,10 +12,12 @@
   //private method
   // <-- PUBLIC --> //
 
-  window.originUniverse = {
-    a: 0,
-    b: 0
-  }
+  // window.originUniverse = {
+  //   a: 0,
+  //   b: 0
+  // }
+
+  p5.prototype.projectionMode = "z";
 
   // scale
   p5.prototype.scale = function(point, modeName = "linear", intensity = -0.5) {
@@ -63,24 +65,23 @@
   }
 
   // class Planet
-  p5.prototype.Planet = function(radius, density, c) {
+  p5.prototype.Planet = function(radius, density, color) {
     this.points = [];
     this.satellite = null;
     this.density = density;
     this.radius = radius;
-    this.c = c;
+    this.color = color;
   }
 
   // planet.generate()
   p5.prototype.Planet.prototype.generate = function() {
     for(var i = 0; i < this.density; i++) {
-      this.points.push(new Point(this.radius, random(0, TWO_PI), random(0, TWO_PI), this.c));
+      this.points.push(new Point(this.radius, random(0, TWO_PI), random(0, TWO_PI), this.color));
     }
   }
 
   // planet.draw()
   p5.prototype.Planet.prototype.draw = function() {
-
     if(this.satellite && this.satellite.anchor.y > 0) {
       this.drawSelf();
       this.satellite.draw();
@@ -90,7 +91,6 @@
     } else {
       this.drawSelf();
     }
-
   }
 
   p5.prototype.Planet.prototype.drawSelf = function() {
@@ -111,7 +111,6 @@
   p5.prototype.Planet.prototype.startRotation = function(angle, delta) {
     this.rotation = setInterval(() => {
       this.rotate(angle);
-      // if (this.satellite) this.satellite.rotate(-angle);
     }, delta);
   }
 
@@ -127,16 +126,17 @@
     var s = new Satellite(distance, anchorAzim, anchorPola, radius, density, color);
     s.generate();
     s.startRotation(-PI/180, 1000/60);
-    console.log(s);
     this.satellite = s;
   }
 
+  // draw all points of the planet
   p5.prototype.Planet.prototype.drawPoints = function() {
     for(var i = 0; i < this.points.length; i++) {
       this.points[i].draw();
     }
   } 
 
+  // class Anchor
   p5.prototype.Anchor = function(radius, azim, pola) {
     p5.prototype.Point.call(this, radius, azim, pola);
   }
@@ -154,6 +154,7 @@
       clearInterval(this.rotation);
   }
 
+  // class satellite
   p5.prototype.Satellite = function(distance, anchorAzim, anchorPola, radius, density, color) {
     p5.prototype.Planet.call(this, radius, density, color);
     this.anchor = new Anchor(distance, anchorAzim, anchorPola);

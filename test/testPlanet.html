@@ -2,6 +2,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+    html{
+      background-color: black;
+    }
+  </style>
 </head>
 <body>
   <script type="text/javascript" src="../dep/p5.min.js"></script>
@@ -13,7 +18,7 @@
     var a;
 
     function setup() {
-      createCanvas(800, 800);
+      createCanvas(windowWidth, windowHeight);
       p = new Planet(150, 800);
       p.startRotation(PI/180, 1000/60);
       p2 = new Planet(50, 200, color(0, 255, 0));
@@ -24,12 +29,16 @@
 
     function draw() {
       background(0);
-      translate(400, 400);
+      translate(width/2, height/2);
       a.rotate(PI/280);
       a.draw();
       p.draw();
       translate(a.x, 0);
       p2.draw();
+    }
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
     }
   </script>
 </body>

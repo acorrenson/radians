@@ -75,8 +75,8 @@
 
   // planet.draw()
   p5.prototype.Planet.prototype.draw = function() {
-    // fill(20);
-    // ellipse(0, 0, this.radius*2, this.radius*2);
+    fill(0);
+    ellipse(0, 0, this.radius*2, this.radius*2);
     for(var i = 0; i < this.points.length; i++) {
       this.points[i].draw();
     }

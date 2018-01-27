@@ -82,12 +82,22 @@
 
   // planet.draw()
   p5.prototype.Planet.prototype.draw = function() {
-    fill(0);
-    ellipse(0, 0, this.radius*2, this.radius*2);
-    for(var i = 0; i < this.points.length; i++) {
-      this.points[i].draw();
+
+    if(this.satellite && this.satellite.y > 0) {
+      fill(0);
+      ellipse(0, 0, this.radius*2, this.radius*2);
+      for(var i = 0; i < this.points.length; i++) {
+        this.points[i].draw();
+      }
+      this.drawSatellites();
+    } else {
+      this.drawSatellites();
+      fill(0);
+      ellipse(0, 0, this.radius*2, this.radius*2);
+      for(var i = 0; i < this.points.length; i++) {
+        this.points[i].draw();
+      }
     }
-    this.drawSatellites();
   }
 
   // planet.rotate()
@@ -121,8 +131,8 @@
 
   p5.prototype.Planet.prototype.drawSatellites = function() {
     // for(var i = 0; i < this.satellites.length; i++) {
-    if (this.satellite) {
-      push();
+      if (this.satellite) {
+        push();
       // this.satellite.rotate(PI/180);
       translate(this.satellite.x, this.satellite.z);
       this.satellite.child.draw();

@@ -10,11 +10,15 @@
   // <-- PRIVATE --> //
   var version = "0.0.0";
   //private method
-
   // <-- PUBLIC --> //
 
+  window.originUniverse = {
+    a: 0,
+    b: 0
+  }
+
   // scale
-  p5.prototype.scale = function(point, modeName = "linear", intensity = -0.5) { 
+  p5.prototype.scale = function(point, modeName = "linear", intensity = -0.5) {
     var mode = {
       linear: function() {
         return intensity/point.radius * abs(point.x) + 1;
@@ -29,8 +33,6 @@
     this.a = azim;
     this.b = pola + HALF_PI;
     this.radius = radius;
-    // get cartesian coordinates
-    this.setCart();
     // color
     this.c = c;
   }
@@ -50,6 +52,8 @@
 
   // draw a point
   p5.prototype.Point.prototype.draw = function(upAxes = "z", scaleEnabled = true) {
+    // get cartesian coordinates
+    if(!this.x) this.setCart();
     fill(this.c);
     noStroke();
     var r = upAxes === "z" ? "y" : "z";
@@ -61,13 +65,14 @@
   // class Planet
   p5.prototype.Planet = function(radius, density, c) {
     this.points = [];
+    this.satelites = [];
     this.density = density;
     this.radius = radius;
     this.c =  c;
     this.generate();
   }
 
-  // planet.genetate()
+  // planet.generate()
   p5.prototype.Planet.prototype.generate = function() {
     for(var i = 0; i < this.density; i++) {
       this.points.push(new Point(this.radius, random(0, TWO_PI), random(0, TWO_PI), this.c));
@@ -99,8 +104,21 @@
   // planet.stopRotation()
   // cancel auto rotation
   p5.prototype.Planet.prototype.stopRotation = function() {
-    if (this.rotation) 
+    if (this.rotation)
       clearInterval(this.rotation);
   }
+
+  // add a new satellite
+  p5.prototype.Planet.prototype.newSatelite = function() {
+    // this.satellite.push(new )
+  }
+
+  p5.prototype.Anchor = function(parent, child) {
+    this.parent = parent;
+    this.child = child;
+    p5.prototype.Point.call(this, this.parent.radius + this.child.radius + 50, 0, 0);
+  }
+
+  p5.prototype.Anchor.prototype = Object.assign({}, p5.prototype.Point.prototype);
 
 })();

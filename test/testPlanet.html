@@ -18,13 +18,13 @@
       p.startRotation(PI/180, 1000/60);
       p2 = new Planet(50, 200, color(0, 255, 0));
       p2.startRotation(PI/90, 1000/60);
-      a = new Point(300, 0, 0);
+      a = new Anchor(p, p2);
 
     }
 
     function draw() {
       background(0);
-      translate(400, 400);  
+      translate(400, 400);
       a.rotate(PI/280);
       a.draw();
       p.draw();

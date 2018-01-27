@@ -1,3 +1,4 @@
+
 // author  : Arthur Correnson
 // mail    : jdrprod@gmail.com
 // version : 0.0.0
@@ -23,13 +24,15 @@
   }
 
   //class Point
-  p5.prototype.Point = function(radius, azim, pola) {
+  p5.prototype.Point = function(radius, azim, pola, c = color(255, 0, 0)) {
     // shperical coordinates
     this.a = azim;
     this.b = pola + HALF_PI;
     this.radius = radius;
     // get cartesian coordinates
     this.setCart();
+    // color
+    this.c = c;
   }
 
   // convert actuals spherical coordinates to cartesian coordinates
@@ -47,7 +50,7 @@
 
   // draw a point
   p5.prototype.Point.prototype.draw = function(upAxes = "z", scaleEnabled = true) {
-    fill(255, 0, 0);
+    fill(this.c);
     noStroke();
     var r = upAxes === "z" ? "y" : "z";
     var h = scaleEnabled ? 8*scale(this) : 8;
@@ -56,22 +59,25 @@
   }
 
   // class Planet
-  p5.prototype.Planet = function(radius, density) {
+  p5.prototype.Planet = function(radius, density, c) {
     this.points = [];
     this.density = density;
     this.radius = radius;
+    this.c =  c;
     this.generate();
   }
 
   // planet.genetate()
   p5.prototype.Planet.prototype.generate = function() {
     for(var i = 0; i < this.density; i++) {
-      this.points.push(new Point(this.radius, random(0, TWO_PI), random(0, TWO_PI)));
+      this.points.push(new Point(this.radius, random(0, TWO_PI), random(0, TWO_PI), this.c));
     }
   }
 
   // planet.draw()
   p5.prototype.Planet.prototype.draw = function() {
+    fill(0);
+    ellipse(0, 0, this.radius*2, this.radius*2);
     for(var i = 0; i < this.points.length; i++) {
       this.points[i].draw();
     }

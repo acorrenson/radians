@@ -1,6 +1,6 @@
 # p5.radians.js
 
-![3 planets displayed with p5.radians.js]("https://raw.githubusercontent.com/Floating-Dream-Studio/radians.js/doc/intro.PNG")
+![3 planets displayed with p5.radians.js]("https://raw.githubusercontent.com/Floating-Dream-Studio/radians.js/master/intro.PNG")
 
 *!!! BE CAREFUL, THIS PROJECT IS IN DEVELOPMENT !!!*
 

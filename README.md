@@ -1,5 +1,7 @@
 # p5.radians.js
 
+![3 planets displayed with p5.radians.js]("intro.png")
+
 *!!! BE CAREFUL, THIS PROJECT IS IN DEVELOPMENT !!!*
 
 This plugin allows you to generate some beautiful planets, stars and galaxies.

@@ -12,12 +12,13 @@
   //private method
   // <-- PUBLIC --> //
 
-  // window.originUniverse = {
-  //   a: 0,
-  //   b: 0
-  // }
+  p5.prototype.projectionMode = "z";
 
-  p5.prototype.projectionMode = "y";
+  p5.prototype.projection = function(mode) {
+    if (mode === "z" || mode === "y") {
+      projectionMode = mode;
+    }
+  }
 
   // scale
   p5.prototype.scale = function(point, modeName = "linear", intensity = -0.5) {

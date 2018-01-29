@@ -109,7 +109,7 @@
 
   // planet.setRotation()
   // start auto rotation
-  p5.prototype.Planet.prototype.startRotation = function(angle, delta) {
+  p5.prototype.Planet.prototype.startRotation = function(angle = PI/180, delta = 1000/60) {
     this.rotation = setInterval(() => {
       this.rotate(angle);
     }, delta);
